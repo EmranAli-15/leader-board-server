@@ -34,7 +34,7 @@ async function main() {
 
         // Collections------------Collections------------
         UserCollection = DB.collection("user");
-        UserCollection = DB.collection("score");
+        ScoreCollection = DB.collection("score");
         // Collections------------Collections------------
 
 
