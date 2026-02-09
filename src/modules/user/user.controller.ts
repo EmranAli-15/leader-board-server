@@ -10,9 +10,9 @@ const createUser = async (req: Request, res: Response) => {
             data: result,
             message: "User registered successfully."
         })
-    } catch (error) {
+    } catch (error: any) {
         res.status(400).json({
-            message: "User registrtion failed."
+            message: error.message || "User registrtion failed."
         })
     }
 };
@@ -27,14 +27,38 @@ const loginUser = async (req: Request, res: Response) => {
             data: result,
             message: "User loggedin successfull."
         })
-    } catch (error) {
+    } catch (error: any) {
         res.status(400).json({
-            message: "User registrtion failed."
+            message: error.message || "Something wrong for login."
+        })
+    }
+};
+
+const updateUserData = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const data = req.body;
+        const stringUserId = userId?.toString();
+
+        let result;
+
+        if (stringUserId) {
+            result = await userServices.updateUserData({ userId: stringUserId, data })
+        }
+
+        res.status(201).json({
+            data: result,
+            message: "Profile updated successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to update data."
         })
     }
 }
 
 export const userControllers = {
     createUser,
-    loginUser
+    loginUser,
+    updateUserData
 };
