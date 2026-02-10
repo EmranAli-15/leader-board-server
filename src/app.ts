@@ -4,7 +4,6 @@ import { userRoutes } from './modules/user/user.route';
 import { scoreRoutes } from './modules/score/score.route';
 
 export const app = express();
-export const port = 5000;
 
 app.use(cors());
 app.use(express.json());

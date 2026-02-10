@@ -12,7 +12,8 @@ export type TUser = {
     photo: string,
     id: string,
     section: string,
-    role: string
+    role: string,
+    phone: string
 };
 
 const createUser = async (data: TUser) => {

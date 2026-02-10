@@ -34,10 +34,43 @@ const updateScore = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to update score."
         })
     }
+};
+
+const getAllTotalScore = async (req: Request, res: Response) => {
+    try {
+        const result = await scoreServices.getAllTotalScore();
+
+        res.status(200).json({
+            data: result,
+            message: "Scores retrieved successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to retrieved scores."
+        })
+    }
+};
+
+const getSingleUserScores = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+        const result = await scoreServices.getSingleUserScores(userId as string);
+
+        res.status(200).json({
+            data: result,
+            message: "Scores retrieved successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to retrieved scores."
+        })
+    }
 }
 
 
 export const scoreControllers = {
     addScore,
-    updateScore
+    updateScore,
+    getAllTotalScore,
+    getSingleUserScores
 };
