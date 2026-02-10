@@ -28,7 +28,6 @@ const createUser = async (data: TUser) => {
     return result;
 };
 
-
 const loginUser = async ({ email, password }: { email: string, password: string }) => {
     const isUserExist = await UserCollection.findOne({ email: email });
 
@@ -61,10 +60,29 @@ const updateUserData = async ({ userId, data }: { userId: string, data: any }) =
     const result = await UserCollection.updateOne(query, update, options);
 
     return result;
+};
+
+const changeUserPassword = async ({ userId, currentPass, newPass }: { userId: string, currentPass: string, newPass: string }) => {
+    const isUserExist = await UserCollection.findOne({ _id: new ObjectId(userId) });
+
+    if (!isUserExist) {
+        throw new AppError(404, "User not found.")
+    }
+
+    const passwordMatched = await hashMatch(currentPass, isUserExist.password);
+    if (!passwordMatched) {
+        throw new AppError(403, "Incorrect password.");
+    }
+
+    const hashPass = await hashGenerate(newPass);
+    const result = await UserCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { password: hashPass } }, { upsert: false });
+
+    return result;
 }
 
 export const userServices = {
     createUser,
     loginUser,
-    updateUserData
+    updateUserData,
+    changeUserPassword
 };

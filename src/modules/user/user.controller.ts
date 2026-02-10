@@ -55,10 +55,29 @@ const updateUserData = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to update data."
         })
     }
+};
+
+const changeUserPassword = async (req: Request, res: Response) => {
+    try {
+        const data = req.body;
+        const { userId, currentPass, newPass } = data;
+
+        const result = await userServices.changeUserPassword({ userId, currentPass, newPass });
+
+        res.status(201).json({
+            data: result,
+            message: "Password changed successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to change password."
+        })
+    }
 }
 
 export const userControllers = {
     createUser,
     loginUser,
-    updateUserData
+    updateUserData,
+    changeUserPassword
 };
