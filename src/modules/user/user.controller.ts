@@ -73,11 +73,29 @@ const changeUserPassword = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to change password."
         })
     }
-}
+};
+
+const getUserData = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+
+        const result = await userServices.getUserData(userId as string);
+
+        res.status(200).json({
+            data: result,
+            message: "User data retrieved successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to retrieved user data."
+        })
+    }
+};
 
 export const userControllers = {
     createUser,
     loginUser,
     updateUserData,
-    changeUserPassword
+    changeUserPassword,
+    getUserData
 };

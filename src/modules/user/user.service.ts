@@ -50,7 +50,7 @@ const loginUser = async ({ email, password }: { email: string, password: string 
         const token = createAccessToken(jwtPayload);
         return token;
     }
-}
+};
 
 const updateUserData = async ({ userId, data }: { userId: string, data: any }) => {
     const query = { _id: new ObjectId(userId) };
@@ -79,11 +79,17 @@ const changeUserPassword = async ({ userId, currentPass, newPass }: { userId: st
     const result = await UserCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { password: hashPass } }, { upsert: false });
 
     return result;
+};
+
+const getUserData = async (userId: string) => {
+    const result = await UserCollection.findOne({ _id: new ObjectId(userId) }, { projection: { password: 0 } });
+    return result;
 }
 
 export const userServices = {
     createUser,
     loginUser,
     updateUserData,
-    changeUserPassword
+    changeUserPassword,
+    getUserData
 };

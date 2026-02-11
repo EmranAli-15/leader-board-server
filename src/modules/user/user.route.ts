@@ -6,5 +6,6 @@ route.post("/createUser", userControllers.createUser);
 route.post("/loginUser", userControllers.loginUser);
 route.patch("/updateUserData/:userId", userControllers.updateUserData);
 route.patch("/changeUserPassword", userControllers.changeUserPassword);
+route.get("/getUserData/:userId", userControllers.getUserData);
 
 export const userRoutes = route;
