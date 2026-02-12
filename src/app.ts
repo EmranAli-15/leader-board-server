@@ -13,4 +13,11 @@ app.use("/api", scoreRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send("Hello leaders!");
-})
+});
+
+
+app.use((req, res, next) => {
+    res.status(400).json({
+        message: "No route found!"
+    })
+});

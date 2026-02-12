@@ -59,7 +59,7 @@ const getAllTotalScore = async () => {
 };
 
 const getSingleUserScores = async (userId: string) => {
-    const result = await ScoreCollection.find({ userId: new ObjectId(userId) }).sort({ "day": 1 }).toArray();
+    const result = await ScoreCollection.find({ userId: new ObjectId(userId) }).sort({ "day": -1 }).toArray();
     return result;
 }
 
