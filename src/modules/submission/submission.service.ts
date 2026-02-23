@@ -20,8 +20,12 @@ const createSubmission = async (data: submission) => {
     return result;
 };
 
-
+const getSingleSubmission = async (userId: string) => {
+    const result = await SubmissionCollection.findOne({ userId: new ObjectId(userId) });
+    return result;
+}
 
 export const submissionServices = {
-    createSubmission
+    createSubmission,
+    getSingleSubmission
 };

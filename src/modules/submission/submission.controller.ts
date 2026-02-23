@@ -19,7 +19,26 @@ const addSubmission = async (req: Request, res: Response) => {
     }
 };
 
+const getSingleSubmission = async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params;
+
+
+        const result = await submissionServices.getSingleSubmission(userId as string);
+
+        res.status(201).json({
+            data: result,
+            message: "Submission retrived successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to retrived submission."
+        })
+    }
+}
+
 
 export const submissionControllers = {
-    addSubmission
+    addSubmission,
+    getSingleSubmission
 };
