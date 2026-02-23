@@ -18,6 +18,8 @@ let DB: Db;
 // Collections
 export let UserCollection: Collection;
 export let ScoreCollection: Collection;
+export let SubmissionCollection: Collection;
+export let FeedbackCollection: Collection;
 
 let isConnected = false;
 
@@ -31,6 +33,8 @@ async function connectDB() {
 
     UserCollection = DB.collection("user");
     ScoreCollection = DB.collection("score");
+    SubmissionCollection = DB.collection("submission");
+    FeedbackCollection = DB.collection("feedback");
 
     isConnected = true;
 }
