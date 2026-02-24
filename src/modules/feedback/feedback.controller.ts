@@ -26,7 +26,7 @@ const getSingleFeedback = async (req: Request, res: Response) => {
 
         const result = await feedbackServices.getSingleFeedback(userId as string);
 
-        res.status(201).json({
+        res.status(200).json({
             data: result,
             message: "Feedback retrived successfull."
         })

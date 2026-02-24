@@ -44,7 +44,8 @@ const loginUser = async ({ email, password }: { email: string, password: string 
 
         const jwtPayload = {
             userId: isUserExist._id,
-            email: email
+            email: email,
+            role: isUserExist.role
         }
 
         const token = createAccessToken(jwtPayload);
