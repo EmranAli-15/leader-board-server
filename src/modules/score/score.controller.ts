@@ -20,10 +20,10 @@ const addScore = async (req: Request, res: Response) => {
 const updateScore = async (req: Request, res: Response) => {
     try {
         const data = req.body;
-        const { userId, score } = data;
+        const { scoreId, score } = data;
         const scoreNum = Number(score);
 
-        const result = await scoreServices.updateScore({ userId: userId, score: scoreNum });
+        const result = await scoreServices.updateScore({ scoreId: scoreId, score: scoreNum });
 
         res.status(201).json({
             data: result,
@@ -65,12 +65,29 @@ const getSingleUserScores = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to retrieved scores."
         })
     }
-}
+};
+
+const deleteScore = async (req: Request, res: Response) => {
+    try {
+        const { scoreId } = req.params;
+        const result = await scoreServices.deleteScore(scoreId as string);
+
+        res.status(200).json({
+            data: result,
+            message: "Score deleted successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to delete score."
+        })
+    }
+};
 
 
 export const scoreControllers = {
     addScore,
     updateScore,
     getAllTotalScore,
-    getSingleUserScores
+    getSingleUserScores,
+    deleteScore
 };

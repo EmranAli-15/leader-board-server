@@ -18,8 +18,8 @@ const addNewScore = async (data: TScore) => {
     return result;
 };
 
-const updateScore = async ({ userId, score }: { userId: string, score: number }) => {
-    const result = await ScoreCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { score: score } }, { upsert: false });
+const updateScore = async ({ scoreId, score }: { scoreId: string, score: number }) => {
+    const result = await ScoreCollection.updateOne({ _id: new ObjectId(scoreId) }, { $set: { score: score } }, { upsert: false });
 
     return result;
 };
@@ -65,11 +65,15 @@ const getSingleUserScores = async (userId: string) => {
     return result;
 }
 
-
+const deleteScore = async (scoreId: string) => {
+    const result = await ScoreCollection.deleteOne({ _id: new ObjectId(scoreId) });
+    return result;
+}
 
 export const scoreServices = {
     addNewScore,
     updateScore,
     getAllTotalScore,
-    getSingleUserScores
+    getSingleUserScores,
+    deleteScore
 }
