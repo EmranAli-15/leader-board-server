@@ -3,6 +3,7 @@ import cors from 'cors';
 import { userRoutes } from './modules/user/user.route';
 import { scoreRoutes } from './modules/score/score.route';
 import { submissionRoutes } from './modules/submission/submission.route';
+import { feedbackRoutes } from './modules/feedback/feedback.route';
 
 export const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use("/api", userRoutes);
 app.use("/api", scoreRoutes);
 app.use("/api", submissionRoutes);
+app.use("/api", feedbackRoutes);
 
 app.get('/', (req: Request, res: Response) => {
     res.send("Hello leaders!");
