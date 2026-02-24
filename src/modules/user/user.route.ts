@@ -7,5 +7,6 @@ route.post("/loginUser", userControllers.loginUser);
 route.patch("/updateUserData/:userId", userControllers.updateUserData);
 route.patch("/changeUserPassword", userControllers.changeUserPassword);
 route.get("/getUserData/:userId", userControllers.getUserData);
+route.get("/getAllUser", userControllers.getAllUser);
 
 export const userRoutes = route;

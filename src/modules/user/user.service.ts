@@ -85,6 +85,11 @@ const changeUserPassword = async ({ userId, currentPass, newPass }: { userId: st
 const getUserData = async (userId: string) => {
     const result = await UserCollection.findOne({ _id: new ObjectId(userId) }, { projection: { password: 0 } });
     return result;
+};
+
+const getAllUser = async () => {
+    const result = await UserCollection.find({"role": "user"}, { projection: { password: 0 } }).toArray();
+    return result;
 }
 
 export const userServices = {
@@ -92,5 +97,6 @@ export const userServices = {
     loginUser,
     updateUserData,
     changeUserPassword,
-    getUserData
+    getUserData,
+    getAllUser
 };

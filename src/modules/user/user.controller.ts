@@ -92,10 +92,26 @@ const getUserData = async (req: Request, res: Response) => {
     }
 };
 
+const getAllUser = async (req: Request, res: Response) => {
+    try {
+        const result = await userServices.getAllUser();
+
+        res.status(200).json({
+            data: result,
+            message: "Users retrieved successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to retrieved users."
+        })
+    }
+}
+
 export const userControllers = {
     createUser,
     loginUser,
     updateUserData,
     changeUserPassword,
-    getUserData
+    getUserData,
+    getAllUser
 };
