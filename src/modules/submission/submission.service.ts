@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb"
-import { SubmissionCollection } from "../../server";
+import { SubmissionCollection, UserCollection } from "../../server";
 import { AppError } from "../../utils/AppError";
 
 type submission = {
@@ -10,6 +10,12 @@ type submission = {
 
 const createSubmission = async (data: submission) => {
     data.userId = new ObjectId(data.userId);
+
+    const user = await UserCollection.findOne({ _id: data.userId });
+
+    if (user?.isDisabled) {
+        throw new AppError(403, "Your profile is disabled.");
+    }
 
     const result = await SubmissionCollection.updateOne(
         { userId: data.userId },

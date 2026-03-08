@@ -88,7 +88,20 @@ const getUserData = async (userId: string) => {
 };
 
 const getAllUser = async () => {
-    const result = await UserCollection.find({"role": "user"}, { projection: { password: 0 } }).toArray();
+    const result = await UserCollection.find({ "role": "user" }, { projection: { password: 0 } }).toArray();
+    return result;
+};
+
+
+
+const userDisabled = async ({ userId, status }: { userId: string, status: boolean }) => {
+    const query = { _id: new ObjectId(userId) };
+    const update = {
+        $set: { isDisabled: status }
+    };
+    const options = { upsert: false };
+    const result = await UserCollection.updateOne(query, update, options);
+
     return result;
 }
 
@@ -98,5 +111,8 @@ export const userServices = {
     updateUserData,
     changeUserPassword,
     getUserData,
-    getAllUser
+    getAllUser,
+
+
+    userDisabled
 };

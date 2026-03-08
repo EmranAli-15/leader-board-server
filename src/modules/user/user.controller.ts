@@ -105,6 +105,25 @@ const getAllUser = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to retrieved users."
         })
     }
+};
+
+
+
+
+const userDisabled = async (req: Request, res: Response) => {
+    try {
+        const { userId, status } = req.body;
+        const result = await userServices.userDisabled({ userId, status });
+
+        res.status(201).json({
+            data: result,
+            message: "Users status update successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to update user status."
+        })
+    }
 }
 
 export const userControllers = {
@@ -113,5 +132,8 @@ export const userControllers = {
     updateUserData,
     changeUserPassword,
     getUserData,
-    getAllUser
+    getAllUser,
+
+
+    userDisabled
 };

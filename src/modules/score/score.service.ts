@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { ScoreCollection } from "../../server";
+import { ScoreCollection, UserCollection } from "../../server";
 import { AppError } from "../../utils/AppError";
 
 export type TScore = {
@@ -26,6 +26,7 @@ const updateScore = async ({ scoreId, score }: { scoreId: string, score: number 
 
 const getAllTotalScore = async () => {
     // throw new AppError(400, "Something wrong")
+    // await UserCollection.updateMany({}, { $set: { isDisabled: false } });
     const result = await ScoreCollection.aggregate([
         {
             $group: {

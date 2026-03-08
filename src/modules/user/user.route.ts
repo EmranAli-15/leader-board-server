@@ -9,4 +9,7 @@ route.patch("/changeUserPassword", userControllers.changeUserPassword);
 route.get("/getUserData/:userId", userControllers.getUserData);
 route.get("/getAllUser", userControllers.getAllUser);
 
+
+route.patch("/updateUserStatus", userControllers.userDisabled);
+
 export const userRoutes = route;
