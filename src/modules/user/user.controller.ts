@@ -124,6 +124,23 @@ const userDisabled = async (req: Request, res: Response) => {
             message: error.message || "Something wrong to update user status."
         })
     }
+};
+
+
+const updateUserPassByAdmin = async (req: Request, res: Response) => {
+    try {
+        const { email } = req.body;
+        const result = await userServices.updateUserPassByAdmin(email);
+
+        res.status(201).json({
+            data: result,
+            message: "Users password update successfull."
+        })
+    } catch (error: any) {
+        res.status(400).json({
+            message: error.message || "Something wrong to update user password."
+        })
+    }
 }
 
 export const userControllers = {
@@ -135,5 +152,6 @@ export const userControllers = {
     getAllUser,
 
 
-    userDisabled
+    userDisabled,
+    updateUserPassByAdmin
 };

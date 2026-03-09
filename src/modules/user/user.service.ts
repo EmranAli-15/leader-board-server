@@ -103,6 +103,21 @@ const userDisabled = async ({ userId, status }: { userId: string, status: boolea
     const result = await UserCollection.updateOne(query, update, options);
 
     return result;
+};
+
+const updateUserPassByAdmin = async (email: string) => {
+    const newPass = await hashGenerate("123456");
+
+    const query = { email: email };
+    const update = {
+        $set: {
+            password: newPass
+        }
+    };
+    const options = { upsert: false };
+    const result = await UserCollection.updateOne(query, update, options);
+
+    return result;
 }
 
 export const userServices = {
@@ -114,5 +129,6 @@ export const userServices = {
     getAllUser,
 
 
-    userDisabled
+    userDisabled,
+    updateUserPassByAdmin
 };

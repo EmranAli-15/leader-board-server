@@ -11,5 +11,6 @@ route.get("/getAllUser", userControllers.getAllUser);
 
 
 route.patch("/updateUserStatus", userControllers.userDisabled);
+route.patch("/updateUserPassByAdmin", userControllers.updateUserPassByAdmin);
 
 export const userRoutes = route;
