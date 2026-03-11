@@ -44,6 +44,11 @@ const getAllTotalScore = async () => {
         },
         { $unwind: "$user" },
         {
+            $match: {
+                "user.role": "user"
+            }
+        },
+        {
             $project: {
                 _id: 0,
                 userId: "$_id",
@@ -58,6 +63,7 @@ const getAllTotalScore = async () => {
             }
         }
     ]).toArray();
+
     return result;
 };
 
